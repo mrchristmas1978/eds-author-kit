@@ -213,6 +213,11 @@ header {
     .main-nav-link {
       display: block;
       line-height: 64px;
+      color: var(--color-light);
+    }
+
+    a {
+      color: var(--color-light);
     }
 
     .menu,
