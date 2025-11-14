@@ -166,15 +166,24 @@ async function decorateBrandSection(section) {
     console.warn('Could not load adaptTo logo:', e);
   }
 
-  // Handle text content - preserve original behavior
-  const childNodes = Array.from(brandLink.childNodes);
-  const textNode = childNodes[1];
-  if (textNode && textNode.nodeType === Node.TEXT_NODE) {
-    const span = document.createElement('span');
-    span.className = 'brand-text';
-    span.append(textNode.cloneNode(true));
-    brandLink.append(span);
+  // Set brand text to "adaptTo()"
+  // Remove any existing brand-text spans
+  const existingBrandText = brandLink.querySelector('.brand-text');
+  if (existingBrandText) {
+    existingBrandText.remove();
   }
+  
+  // Remove all text nodes from the brand link
+  const textNodes = Array.from(brandLink.childNodes).filter(
+    (node) => node.nodeType === Node.TEXT_NODE
+  );
+  textNodes.forEach((node) => node.remove());
+  
+  // Create and add "adaptTo()" text
+  const span = document.createElement('span');
+  span.className = 'brand-text';
+  span.textContent = 'adaptTo()';
+  brandLink.append(span);
 }
 
 function decorateNavSection(section) {
