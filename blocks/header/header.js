@@ -172,13 +172,13 @@ async function decorateBrandSection(section) {
   if (existingBrandText) {
     existingBrandText.remove();
   }
-  
+
   // Remove all text nodes from the brand link
   const textNodes = Array.from(brandLink.childNodes).filter(
-    (node) => node.nodeType === Node.TEXT_NODE
+    (node) => node.nodeType === Node.TEXT_NODE,
   );
   textNodes.forEach((node) => node.remove());
-  
+
   // Create and add "adaptTo()" text
   const span = document.createElement('span');
   span.className = 'brand-text';
