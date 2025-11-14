@@ -138,14 +138,43 @@ function decorateNavItem(li) {
   });
 }
 
-function decorateBrandSection(section) {
+async function decorateBrandSection(section) {
   section.classList.add('brand-section');
   const brandLink = section.querySelector('a');
-  const [, text] = brandLink.childNodes;
-  const span = document.createElement('span');
-  span.className = 'brand-text';
-  span.append(text);
-  brandLink.append(span);
+  if (!brandLink) return;
+
+  // Replace or add adaptTo() logo
+  const existingImg = brandLink.querySelector('img, svg');
+  if (existingImg) {
+    existingImg.remove();
+  }
+
+  // Load and inject adaptTo() logo SVG
+  try {
+    const logoResponse = await fetch('/img/icons/adaptto-logo.svg');
+    if (logoResponse.ok) {
+      const logoSvg = await logoResponse.text();
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = logoSvg;
+      const svg = tempDiv.querySelector('svg');
+      if (svg) {
+        brandLink.insertBefore(svg, brandLink.firstChild);
+      }
+    }
+  } catch (e) {
+    // Fallback if logo can't be loaded
+    console.warn('Could not load adaptTo logo:', e);
+  }
+
+  // Handle text content - preserve original behavior
+  const childNodes = Array.from(brandLink.childNodes);
+  const textNode = childNodes[1];
+  if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+    const span = document.createElement('span');
+    span.className = 'brand-text';
+    span.append(textNode.cloneNode(true));
+    brandLink.append(span);
+  }
 }
 
 function decorateNavSection(section) {
@@ -171,7 +200,7 @@ async function decorateActionSection(section) {
 
 async function decorateHeader(fragment) {
   const sections = fragment.querySelectorAll(':scope > .section');
-  if (sections[0]) decorateBrandSection(sections[0]);
+  if (sections[0]) await decorateBrandSection(sections[0]);
   if (sections[1]) decorateNavSection(sections[1]);
   if (sections[2]) decorateActionSection(sections[2]);
 
