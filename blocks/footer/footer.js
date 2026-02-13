@@ -24,6 +24,16 @@ export default async function init(el) {
     legal.classList.add('section-legal');
 
     el.append(fragment);
+
+    // Add Easter images
+    const easterContainer = document.createElement('div');
+    easterContainer.classList.add('easter-images');
+    easterContainer.innerHTML = `
+      <img src="/img/easter-eggs.png?v=2" class="easter-eggs-left" alt="Easter Eggs Left" />
+      <img src="/img/easter-eggs.png?v=2" class="easter-eggs-center" alt="Easter Eggs Center" />
+      <img src="/img/easter-eggs.png?v=2" class="easter-eggs-right" alt="Easter Eggs Right" />
+    `;
+    el.append(easterContainer);
   } catch (e) {
     throw Error(e);
   }

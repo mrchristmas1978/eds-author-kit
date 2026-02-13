@@ -381,7 +381,7 @@ aem-sidekick {
   }
 }
 
-.snow-container {
+.spring-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -392,10 +392,10 @@ aem-sidekick {
   overflow: hidden;
 }
 
-.snowflake {
+.spring-element {
   position: absolute;
   top: -50px;
-  color: #fff;
+  color: #fff; /* Emojis have their own colors, but this matches original structure */
   user-select: none;
   animation: fall linear forwards;
 }
