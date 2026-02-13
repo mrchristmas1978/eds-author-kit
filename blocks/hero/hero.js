@@ -21,6 +21,13 @@ function decorateBackground(hero, bg) {
 }
 
 function decorateForeground(fg) {
+  // Remove specific "Get started with AEM" button section as requested
+  const aemBtn = fg.querySelector('a[href*="aem.live/developer/tutorial"]');
+  if (aemBtn) {
+    fg.remove();
+    return;
+  }
+
   const heading = fg.querySelector('h1, h2, h3, h4, h5, h6');
   if (heading) {
     heading.classList.add('hero-heading');
