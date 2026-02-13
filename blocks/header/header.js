@@ -129,7 +129,14 @@ function decorateMegaMenu(li) {
 function decorateNavItem(li) {
   li.classList.add('main-nav-item');
   const link = li.querySelector(':scope > p > a');
-  if (link) link.classList.add('main-nav-link');
+  if (link) {
+    const text = link.textContent.trim();
+    if (['Features', 'Docs', 'Get started'].includes(text)) {
+      li.remove();
+      return;
+    }
+    link.classList.add('main-nav-link');
+  }
   const menu = decorateMegaMenu(li) || decorateMenu(li);
   if (!(menu || link)) return;
   link.addEventListener('click', (e) => {

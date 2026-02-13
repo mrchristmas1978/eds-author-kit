@@ -19,6 +19,7 @@ export default async function init(el) {
 
     const copyright = sections.pop();
     copyright.classList.add('section-copyright');
+    copyright.innerHTML = copyright.innerHTML.replace('2025', '2026');
 
     const legal = sections.pop();
     legal.remove();
